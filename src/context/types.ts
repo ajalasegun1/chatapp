@@ -1,4 +1,4 @@
-import {Dispatch, SetStateAction} from 'react';
+import {StreamChat} from 'stream-chat';
 
 export type UserType = {
   name: string;
@@ -9,4 +9,7 @@ export type UserType = {
 export type UserContextType = {
   user: UserType | undefined;
   setOnlineUser: (user: UserType) => void;
+  client?: StreamChat;
+  setChatClient: (client: StreamChat) => void;
+  updateChatClient: () => void;
 };

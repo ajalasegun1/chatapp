@@ -12,11 +12,18 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {RFValue} from 'react-native-responsive-fontsize';
 import Toast from 'react-native-simple-toast';
 import {useUserContext} from './context/UserContext';
+import {StreamChat} from 'stream-chat';
+import Config from 'react-native-config';
+const client = StreamChat.getInstance(
+  Config.STREAM_KEY ? Config.STREAM_KEY : '',
+);
 const Login = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const {setOnlineUser, user} = useUserContext();
+  const {setOnlineUser, setChatClient} = useUserContext();
+
   const onLogin = () => {
+    setChatClient(client);
     let validRegex =
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     if (!name || !email) {
@@ -32,7 +39,7 @@ const Login = () => {
     }
 
     setOnlineUser({
-      name,
+      name: name.toLowerCase(),
       email: email.toLowerCase(),
       image: 'https://i.pravatar.cc/300',
     });
