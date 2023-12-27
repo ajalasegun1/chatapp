@@ -7,13 +7,13 @@ import {
   Channel,
   MessageInput,
   MessageList,
+  MessageAvatar,
 } from 'stream-chat-react-native';
 import {ChatroomScreenProp} from './navigation/types';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 const Chatroom: FC<ChatroomScreenProp> = ({navigation}) => {
   const {client, currentChannel} = useUserContext();
-  //   console.log({currentChannel});
 
   if (!client || !currentChannel) {
     return (
@@ -23,12 +23,13 @@ const Chatroom: FC<ChatroomScreenProp> = ({navigation}) => {
     );
   }
   useEffect(() => {
-    navigation.setOptions({title: "Segun's Group"});
+    navigation.setOptions({title: 'Chat Room'});
   }, []);
+  const SmallAvatar = () => <MessageAvatar size={30} />;
   return (
     <OverlayProvider>
       <Chat client={client}>
-        <Channel channel={currentChannel}>
+        <Channel channel={currentChannel} MessageAvatar={SmallAvatar}>
           <SafeAreaView style={styles.container} edges={['bottom']}>
             <MessageList />
             <MessageInput />

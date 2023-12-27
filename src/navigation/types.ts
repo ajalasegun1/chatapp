@@ -4,6 +4,7 @@ export type RootStackParamList = {
   Chat: undefined;
   Login: undefined;
   Chatroom: undefined;
+  UsersList: undefined;
 };
 
 export type ChatScreenProp = NativeStackScreenProps<RootStackParamList, 'Chat'>;
@@ -14,4 +15,8 @@ export type LoginScreenProp = NativeStackScreenProps<
 export type ChatroomScreenProp = NativeStackScreenProps<
   RootStackParamList,
   'Chatroom'
+>;
+export type UsersListScreenProp = NativeStackScreenProps<
+  RootStackParamList,
+  'UsersList'
 >;

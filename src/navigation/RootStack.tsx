@@ -8,6 +8,7 @@ import {useUserContext} from '../context/UserContext';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import Chatroom from '../Chatroom';
 import {RootStackParamList} from './types';
+import UsersList from '../UsersList';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -32,6 +33,15 @@ const RootStack = () => {
                 options={{
                   headerTitleAlign: 'center',
                   headerBackTitleVisible: false,
+                }}
+              />
+              <Stack.Screen
+                name="UsersList"
+                component={UsersList}
+                options={{
+                  headerTitleAlign: 'center',
+                  headerBackTitleVisible: false,
+                  headerTitle: 'Users',
                 }}
               />
             </Stack.Group>
