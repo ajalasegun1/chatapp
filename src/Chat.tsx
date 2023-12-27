@@ -1,14 +1,17 @@
 import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {useUserContext} from './context/UserContext';
 import {
   ChannelList,
   Chat as ChatComponent,
+  DefaultStreamChatGenerics,
   OverlayProvider,
 } from 'stream-chat-react-native';
+import {Channel} from 'stream-chat';
+import {ChatScreenProp} from './navigation/types';
 
-const Chat = () => {
-  const {user, client} = useUserContext();
+const Chat: FC<ChatScreenProp> = ({navigation}) => {
+  const {user, client, setCurrentChannel} = useUserContext();
   const [userSet, setUserSet] = useState(false);
 
   useEffect(() => {
@@ -43,12 +46,18 @@ const Chat = () => {
     const createChannel = async () => {
       const globalChannel = client?.channel('livestream', 'global', {
         name: "Segun's Group",
+        image: 'https://i.pravatar.cc/300',
       });
       await globalChannel?.watch();
     };
 
     createChannel();
   }, [userSet]);
+
+  const onSelect = (channel: Channel<DefaultStreamChatGenerics>) => {
+    setCurrentChannel(channel);
+    navigation.push('Chatroom');
+  };
 
   return (
     <OverlayProvider>
@@ -59,7 +68,7 @@ const Chat = () => {
       ) : (
         <ChatComponent client={client}>
           <View style={styles.container}>
-            <ChannelList />
+            <ChannelList onSelect={onSelect} />
           </View>
         </ChatComponent>
       )}

@@ -1,4 +1,4 @@
-import {StreamChat} from 'stream-chat';
+import {StreamChat, Channel} from 'stream-chat';
 
 export type UserType = {
   name: string;
@@ -11,5 +11,6 @@ export type UserContextType = {
   setOnlineUser: (user: UserType) => void;
   client?: StreamChat;
   setChatClient: (client: StreamChat) => void;
-  updateChatClient: () => void;
+  currentChannel?: Channel;
+  setCurrentChannel: (channel: Channel) => void;
 };

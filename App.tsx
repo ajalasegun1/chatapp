@@ -17,17 +17,14 @@ const client = StreamChat.getInstance(
 );
 
 function App(): React.JSX.Element {
-  const {setChatClient, updateChatClient} = useUserContext();
+  const {setChatClient} = useUserContext();
 
   useEffect(() => {
-    // console.log('client from home', client);
     if (!client) return;
     activateClient();
   }, [client]);
 
   const activateClient = () => {
-    updateChatClient();
-
     setChatClient(client);
   };
   return (

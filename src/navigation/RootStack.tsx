@@ -6,8 +6,10 @@ import Login from '../Login';
 import Chat from '../Chat';
 import {useUserContext} from '../context/UserContext';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import Chatroom from '../Chatroom';
+import {RootStackParamList} from './types';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const RootStack = () => {
   const {user} = useUserContext();
@@ -16,13 +18,23 @@ const RootStack = () => {
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Login">
           {user ? (
-            <Stack.Screen
-              name="Chat"
-              component={Chat}
-              options={{
-                headerTitleAlign: 'center',
-              }}
-            />
+            <Stack.Group>
+              <Stack.Screen
+                name="Chat"
+                component={Chat}
+                options={{
+                  headerTitleAlign: 'center',
+                }}
+              />
+              <Stack.Screen
+                name="Chatroom"
+                component={Chatroom}
+                options={{
+                  headerTitleAlign: 'center',
+                  headerBackTitleVisible: false,
+                }}
+              />
+            </Stack.Group>
           ) : (
             <Stack.Screen
               name="Login"
